@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**
  * Created by wangsm on 2018/1/9.
+ * 测试用户名修改
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:spring.xml")
@@ -22,6 +24,7 @@ public class ConnectProductLogDaoTest {
     @Test
     public void insertTest(){
         ConnectProductLog productLog = new ConnectProductLog();
+        WeakReference<ConnectProductLog> weakReference = new WeakReference<ConnectProductLog>(productLog);
         productLog.setConnectNo("10001");
         productLog.setLogType("1");
         productLog.setCreateUser("wsm");
