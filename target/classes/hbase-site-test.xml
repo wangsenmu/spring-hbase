@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+    <property>
+        <name>hbase.cluster.distributed</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>zookeeper.znode.parent</name>
+        <value>/hbase_phoenix_lpt</value>
+    </property>
+    <property>
+        <name>hbase.zookeeper.quorum</name>
+        <value>10.2.26.144,10.2.26.145,10.2.26.146</value>
+    </property>
+</configuration>
+
+
+<!--
+<configuration>
+<property>
+    <name>hbase.cluster.distributed</name>
+    <value>true</value>
+</property>
+<property>
+    <name>hbase.rootdir</name>
+    <value>hdfs://<ip>:9000/hbase</value>
+</property>
+<property>
+    <name>hbase.zookeeper.quorum</name>
+    <value><domain></value>
+</property>
+<property>
+    <name>hbase.zookeeper.property.clientPort</name>
+    <value>2181</value>
+</property>
+</configuration> -->
