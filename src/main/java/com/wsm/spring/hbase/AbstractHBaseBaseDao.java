@@ -4,6 +4,8 @@ import com.wsm.spring.hbase.shared.util.JSONUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.hbase.Cell;
 import org.apache.hadoop.hbase.CellUtil;
+import org.apache.hadoop.hbase.client.HTableInterface;
+import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.filter.*;
@@ -11,6 +13,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.hadoop.hbase.HbaseTemplate;
 import org.springframework.data.hadoop.hbase.RowMapper;
+import org.springframework.data.hadoop.hbase.TableCallback;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -208,14 +211,22 @@ public abstract class AbstractHBaseBaseDao<T> {
         if (hbaseTemplate == null)
             return hbaseTemplate;
         Map<String, Object> attributes = JSONUtil.formatJsonToMap(JSONUtil.toJson(bean));
+        final Put p = new Put(Bytes.toBytes(rowKey));
         for (String qualifier : attributes.keySet()) {
             byte[] valueByte = null;
             Object value = attributes.get(qualifier);
             if (value != null) {
                 valueByte = value.toString().getBytes();
             }
-            hbaseTemplate.put(this.initTableName(), rowKey, this.initFamilyName(), qualifier, valueByte);
+            p.addColumn(Bytes.toBytes(this.initFamilyName()), Bytes.toBytes(qualifier), valueByte);
         }
+        hbaseTemplate.execute(this.initTableName(), new TableCallback<Object>() {
+            @Override
+            public Object doInTable(HTableInterface table) throws Throwable {
+                table.put(p);
+                return null;
+            }
+        });
         return hbaseTemplate;
     }
 
