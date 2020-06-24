@@ -1,9 +1,5 @@
 package com.wsm.spring.hbase.shared.pojo;
 
-/**
- * Created by sxu on 2017-11-22.
- */
-
 public class ConnectProductInfo {
 
     private String vendorProductId;

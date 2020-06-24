@@ -13,9 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by sxu on 2017-01-13.
- */
 public class ConvertUtil {
     
     private static String className = ConvertUtil.class.getSimpleName();

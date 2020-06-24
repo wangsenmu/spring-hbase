@@ -5,7 +5,6 @@ import com.wsm.spring.hbase.shared.pojo.ConnectProductInfo;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by sxu on 2017-11-22.
  * HBase Ttdconnectproduct_ProductInfo相关操作
  */
 @Component
